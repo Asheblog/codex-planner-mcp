@@ -56,9 +56,10 @@
   </worker_usage>
 
   <model_tips>
-    <summary>The following combination suits the foreground planning layer, but is NOT required.</summary>
-    <rule>A high-reasoning model (e.g., DeepSeek V4P) with effort=max in the foreground helps with planning, task decomposition, acceptance criteria, and result review for long-task quality.</rule>
-    <rule>However, this is not mandatory: you can use other model configurations with Codex. The key point is that the foreground model handles high-quality planning and review, while the background Claude Code handles execution.</rule>
+    <summary>Recommended cost-optimized model stack (NOT required, but explains this project's intended economics).</summary>
+    <rule>Codex foreground: GPT-5.5 with reasoning/effort xhigh — handles planning, task decomposition, acceptance criteria, and result review.</rule>
+    <rule>Claude Code background: DeepSeek V4 Pro with effort=max — handles long-running execution, code changes, test running, and failure fixing.</rule>
+    <rule>This split keeps high-cost inference to a small number of critical reasoning calls while bulk execution runs on a lower-cost model, so the overall cost is lower than running a single high-cost model end-to-end.</rule>
   </model_tips>
 
   <pass_criteria>

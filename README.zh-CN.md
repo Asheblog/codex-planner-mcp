@@ -26,7 +26,7 @@
 ## 核心优势
 
 - **Codex 做指挥层，Claude Code 做执行层**：策划和动手分离，长任务更稳。
-- **适合高推理模型 + Claude Code 组合**：比如 DeepSeek V4P + effort=max 做前台策划，Claude Code 落地执行。
+- **成本更优的模型组合**：推荐栈 —— Codex 侧使用 GPT-5.5（`xhigh`）负责策划与复核（少量高价值推理）；Claude Code 侧使用 DeepSeek V4 Pro（`effort=max`）负责长时间执行。高成本模型只用在关键决策上，大量执行工作由成本更低的模型完成，整体更省成本。
 - **长任务不堵前台**：`claude_worker_start` 立即返回 jobId，之后按 `pollAfterMs` 低频轮询。
 - **能判断"安静但还活着"**：通过 PID、心跳、stdout/stderr 更新时间判断 worker 是否正常。
 - **支持返工链路**：完成后返回 `sessionId`，Codex 可以带着 `resumeSessionId` 继续指挥返工。

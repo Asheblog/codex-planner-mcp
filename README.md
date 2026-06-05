@@ -67,15 +67,20 @@ Claude: implement -> run tests -> report files, commands, risks
 Codex: review diff -> spot-check tests -> direct rework or close out
 ```
 
-### 2. Pairs well with a high-reasoning planning model + Claude Code execution
+### 2. Designed for a cost-optimized model stack
 
-If your Codex environment uses a high-reasoning model (e.g., DeepSeek V4P) with reasoning/effort set to `max`, this MCP's value becomes even clearer:
+This project's recommended stack:
 
-- The high-reasoning model handles "thinking deeply": architecture boundaries, task decomposition, acceptance criteria, risk points, rework instructions.
-- Claude Code handles "doing thoroughly": modifying code per the prompt, adding tests, running verification, organizing results.
-- Codex does not need to consume all execution logs — it only reads worker summaries, key diffs, and verification results.
+- **Codex foreground** (planning, task decomposition, review): GPT-5.5 with reasoning/effort `xhigh`. A small number of high-quality planning and review calls.
+- **Claude Code background** (execution): DeepSeek V4 Pro with `effort=max`. Long-running coding sessions that do the heavy lifting.
 
-This is not a claim that one model is strictly better than another; it is about putting capabilities in the right place: the planning layer should be steady, the execution layer should be hands-on, and the review layer should keep distance.
+Why this is cost-efficient in this setup:
+
+- The model with higher per-token cost handles only the critical reasoning work — architecture boundaries, acceptance criteria, risk assessment, rework instructions.
+- The lower-cost model handles the bulk execution — editing, testing, refining over many turns.
+- Codex does not need to consume all execution logs; it only reads worker summaries, key diffs, and verification results.
+
+This is not a claim that one model is strictly better than another; it is about putting capabilities in the right place: the planning layer should be steady, the execution layer should be hands-on, and the review layer should keep distance — while keeping overall cost lower than running a single high-cost model end-to-end.
 
 ### 3. Long tasks won't block the foreground session
 
@@ -367,9 +372,9 @@ No. It depends on the Claude Code CLI. It just turns Claude Code into a backgrou
 
 Not stronger in a single-point sense, but more stable as a process. Separating "planner" and "executor" for long tasks lets Codex maintain an external review perspective while Claude Code focuses on execution.
 
-**Is DeepSeek V4P + effort=max required?**
+**Is the GPT-5.5 + DeepSeek V4 Pro stack required?**
 
-No. It is just one example combination that works well for the foreground planning layer. You can use other model configurations with Codex. The key point: the foreground model handles high-quality planning and review; the background Claude Code handles execution.
+No. It is the recommended cost-optimized combination this project is designed around: Codex (GPT-5.5, `xhigh`) handles planning and review; Claude Code (DeepSeek V4 Pro, `effort=max`) handles execution. You can use other model configurations with Codex. The key design: the foreground model handles high-quality planning and review; the background Claude Code handles execution — and the split itself is what this MCP enables.
 
 **Why not return full events by default?**
 
