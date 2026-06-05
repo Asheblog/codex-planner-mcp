@@ -1,0 +1,29 @@
+{
+  "name": "codex-claude-worker-mcp",
+  "version": "0.1.0",
+  "description": "Global MCP worker that lets Codex supervise long-running Claude Code tasks.",
+  "type": "module",
+  "bin": {
+    "codex-claude-worker-mcp": "src/server.mjs",
+    "codex-claude-worker-runner": "src/runner.mjs"
+  },
+  "files": [
+    "src",
+    "examples",
+    "AGENTS.MD",
+    "CLAUDE.MD",
+    "README.zh-CN.md"
+  ],
+  "scripts": {
+    "doctor": "node src/server.mjs --doctor",
+    "regression": "node src/regression.mjs",
+    "smoke": "node src/smoke.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
