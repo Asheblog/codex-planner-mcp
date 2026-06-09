@@ -3,4 +3,5 @@ node_modules/
 *.tgz
 .ccw-*
 .DS_Store
-packyimage
+.env
+output
